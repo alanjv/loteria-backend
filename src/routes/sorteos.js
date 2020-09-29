@@ -5,7 +5,7 @@ const pool = require('../database');
 router.get('/jornada/:jornada', async(req, res) => {
     const jornada = req.params.jornada;
     const registros = await pool.query('select * from tbl_registros where jornada = ?', [jornada]);
-    res.send(registros);
+    res.json(registros);
 });
 
 router.get('/', async(req, res) => {
@@ -21,10 +21,10 @@ router.post('/', async(req, res) => {
         fecha
     };
     await pool.query('insert into tbl_registros set ? ', [registro]);
-    res.send('registro ingresado');
+    res.json({ text: "Sorteo ingresado" });
 });
 
-router.put(':id', async(req, res) => {
+router.put('/:id', async(req, res) => {
     const id = req.params.id;
     const { numero, jornada, fecha } = req.body;
     const registro = {
@@ -32,14 +32,14 @@ router.put(':id', async(req, res) => {
         jornada,
         fecha
     };
-    await pool.query('update tbl_registros set ? where idRegistros = ?', [regisro, id]);
-    res.send('Registro actualizado');
+    await pool.query('update tbl_registros set ? where idRegistros = ?', [registro, id]);
+    res.json({ text: "Sorteo actualizado" });
 });
 
 router.delete('/:id', async(req, res) => {
     const id = req.params.id;
     await pool.query('Delete from tbl_registros where idRegistros = ?', [id]);
-    res.send('Registro borrado');
+    res.json({ text: "Sorteo borrado" });
 });
 
 module.exports = router;

@@ -40,7 +40,7 @@ router.post('/', async(req, res) => {
             await pool.query('insert into tbl_numero_prediccion (numero_prediccion, tbl_predicciones_idPredicciones, probabilidad) values (?,?,?)', [numero_prediccion, id, probabilidad]);
 
         } else {
-            res.send('predicciones guardadas');
+            res.json({ text: "Prediccion guardada" });
         }
     }
 });
