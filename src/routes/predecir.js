@@ -13,8 +13,10 @@ router.get('/todos', async(req, res) => {
 })
 
 router.get('/:jornada', async(req, res) => {
+
     const jornada = req.params.jornada;
-    const registros = await pool.query('select numero from tbl_registros where jornnada = ? order by jornada desc', [jornada]);
+    console.log(jornada);
+    const registros = await pool.query('select numero from tbl_registros where jornada = ? ', [jornada]);
     res.send(registros);
 });
 
